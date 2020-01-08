@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
 const config = require("./config");
@@ -6,6 +7,7 @@ const RichResponse = require("./api/rich-response");
 
 const app = express();
 
+app.use(cors());
 app.use(helmet());
 app.use(require("./expressLog"));
 
