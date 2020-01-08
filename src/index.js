@@ -1,5 +1,2 @@
-const log = require("./log");
-
-log.info("Starting...");
-
+require("./log").info("Starting...");
 require("./server");

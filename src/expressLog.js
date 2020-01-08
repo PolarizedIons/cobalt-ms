@@ -1,10 +1,7 @@
-const ms = require("ms");
 const log = require("./log");
 
-const startTime = Symbol("START_TIME");
-
 module.exports = (req, res, next) => {
-    res.locals[startTime] = res.locals[startTime] || Date.now();
+    res.locals["START_TIME"] = res.locals["START_TIME"] || Date.now();
     req.log = res.log = log.child({
         headers: req.headers,
         url: req.url,
@@ -13,10 +10,4 @@ module.exports = (req, res, next) => {
         query: req.query
     });
     next();
-
-    log.debug(
-        `${req.method} ${req.originalUrl} finished in ${ms(
-            Date.now() - res.locals[startTime]
-        )}.`
-    );
 };
