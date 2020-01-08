@@ -1,6 +1,5 @@
 const express = require("express");
 const helmet = require("helmet");
-const pinoExpress = require("express-pino-logger")();
 const config = require("./config");
 const log = require("./log");
 const Response = require("./api/response");
@@ -8,7 +7,7 @@ const Response = require("./api/response");
 const app = express();
 
 app.use(helmet());
-app.use(pinoExpress);
+app.use(require("./expressLog"));
 
 log.debug("Registering v1");
 require("./api/v1")(app);
