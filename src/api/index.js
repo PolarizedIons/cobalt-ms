@@ -36,6 +36,14 @@ const commandsRouter = express
             "list of commands"
         );
     })
+    .post("/", (req, res) => {
+        natsComm(
+            "commandCreate",
+            req.body,
+            new RichResponse(req, res),
+            "create command"
+        );
+    })
     .put("/:id", (req, res) => {
         natsComm(
             "commandModify",
