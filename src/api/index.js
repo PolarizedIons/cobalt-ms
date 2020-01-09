@@ -3,8 +3,6 @@ const NATS = require("nats");
 const nats = require("../nats");
 const RichResponse = require("./rich-response");
 
-const router = express.Router();
-
 const TIMEOUT_MS = 10000;
 
 const natsComm = (requestTopic, requestData, richResponse, commDesc) => {
@@ -28,8 +26,9 @@ const natsComm = (requestTopic, requestData, richResponse, commDesc) => {
     });
 };
 
-router
-    .get("/commands", (req, res) => {
+const commandsRouter = express
+    .Router()
+    .get("/", (req, res) => {
         natsComm(
             "commandList",
             {},
@@ -37,7 +36,15 @@ router
             "list of commands"
         );
     })
-    .delete("/commands/:id", (req, res) => {
+    .put("/:id", (req, res) => {
+        natsComm(
+            "commandModify",
+            req.body,
+            new RichResponse(req, res),
+            "save command"
+        );
+    })
+    .delete("/:id", (req, res) => {
         natsComm(
             "commandDelete",
             { id: req.params.id },
@@ -47,5 +54,5 @@ router
     });
 
 module.exports = app => {
-    app.use("/v1", router);
+    app.use("/commands", commandsRouter);
 };
