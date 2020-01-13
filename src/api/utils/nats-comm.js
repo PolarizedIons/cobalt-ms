@@ -1,5 +1,5 @@
 const NATS = require("nats");
-const nats = require("../nats");
+const nats = require("../../nats");
 
 const TIMEOUT_MS = 10000;
 

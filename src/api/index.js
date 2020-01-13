@@ -1,3 +1,4 @@
 module.exports = app => {
-    require("./commands")(app);
+    require("./controllers/auth-controller")(app);
+    require("./controllers/commands-controller")(app);
 };

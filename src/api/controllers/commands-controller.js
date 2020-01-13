@@ -1,8 +1,8 @@
 const express = require("express");
-const RichResponse = require("./rich-response");
-const natsComm = require("./nats-comm");
+const RichResponse = require("../rich-response");
+const natsComm = require("../utils/nats-comm");
 
-const commandsRouter = express
+const router = express
     .Router()
     .get("/", (req, res) => {
         natsComm(
@@ -38,5 +38,5 @@ const commandsRouter = express
     });
 
 module.exports = app => {
-    app.use("/commands", commandsRouter);
+    app.use("/commands", router);
 };

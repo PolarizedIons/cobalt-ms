@@ -43,6 +43,10 @@ module.exports = class RichResponse {
         this.badRequest(error.details.map(errorObj => errorObj.message));
     }
 
+    unauthorized(message) {
+        this.err(message, 401);
+    }
+
     notFound(message) {
         this.err(message, 404);
     }

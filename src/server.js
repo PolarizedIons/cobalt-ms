@@ -20,6 +20,10 @@ app.use("*", (req, res) => {
     new RichResponse(req, res).notFound("Route not found");
 });
 
+app.use(function(err, req, res, next) {
+    new RichResponse(req, res).err("Internal server error: " + err.message);
+});
+
 app.listen(config.webPort, () =>
     log.info(`Listening on port ${config.webPort}`)
 );
