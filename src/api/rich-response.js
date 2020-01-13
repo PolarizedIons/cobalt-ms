@@ -10,7 +10,7 @@ module.exports = class RichResponse {
     ok(data = null, status = 200) {
         log.child({
             status,
-            data
+            data,
         }).debug(
             `${this.req.method} ${this.req.originalUrl} finished in ${ms(
                 Date.now() - this.res.locals["START_TIME"]
@@ -22,7 +22,7 @@ module.exports = class RichResponse {
     err(message = "Unknown error", status = 500) {
         log.child({
             status,
-            message
+            message,
         }).debug(
             `${this.req.method} ${this.req.originalUrl} finished in ${ms(
                 Date.now() - this.res.locals["START_TIME"]
@@ -39,25 +39,11 @@ module.exports = class RichResponse {
         this.err(message, 400);
     }
 
-    validationFailed(error) {
-        this.badRequest(error.details.map(errorObj => errorObj.message));
-    }
-
     unauthorized(message) {
         this.err(message, 401);
     }
 
     notFound(message) {
         this.err(message, 404);
-    }
-
-    pagination(data, currentPage, hasNextPage, totalRows) {
-        this.ok({
-            page: currentPage,
-            hasNextPage: hasNextPage,
-            hasPreviousPage: currentPage > 1,
-            totalRows: totalRows,
-            items: data
-        });
     }
 };

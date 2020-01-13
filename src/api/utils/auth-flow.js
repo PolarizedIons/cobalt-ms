@@ -13,7 +13,7 @@ passport.use(
             clientID: config.twitch.clientId,
             clientSecret: config.twitch.clientSecret,
             callbackURL: config.twitch.callbackURL,
-            scope: "user_read"
+            scope: "user_read",
         },
         (accessToken, refreshToken, profile, done) => {
             done(null, profile);
@@ -29,7 +29,7 @@ module.exports.callbackMiddleware = (req, res) =>
             "twitch",
             {
                 failureRedirect: config.frontendCallbackURL,
-                session: false
+                session: false,
             },
             (err, user) => {
                 if (err) {
@@ -66,10 +66,10 @@ module.exports.fetchBadges = twitchUser => {
 module.exports.genJwtToken = twitchUser => {
     return jwt.sign(
         {
-            data: twitchUser
+            data: twitchUser,
         },
         config.jwtSecret,
-        { expiresIn: "24h" } // TODO: this is testing
+        { expiresIn: "24h" }
     );
 };
 
