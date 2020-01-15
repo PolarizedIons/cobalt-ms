@@ -1,4 +1,4 @@
-# Cobalt-Bot
+# Cobalt-MS
 
 ## Microservice portion of Project Cobalt
 
